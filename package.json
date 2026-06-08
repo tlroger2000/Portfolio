@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "gen:galleries": "node scripts/gen-galleries.cjs",
-    "predev": "node scripts/gen-galleries.cjs",
+    "gen:flipbook": "node scripts/gen-flipbook.mjs",
+    "optimize:media": "node scripts/optimize-media.cjs",
+    "predev": "node scripts/gen-galleries.cjs && node scripts/gen-flipbook.mjs",
     "dev": "next dev",
-    "prebuild": "node scripts/gen-galleries.cjs",
+    "prebuild": "node scripts/gen-galleries.cjs && node scripts/gen-flipbook.mjs",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
@@ -18,6 +20,7 @@
     "gsap": "^3.15.0",
     "lucide-react": "^1.17.0",
     "next": "16.2.7",
+    "page-flip": "^2.0.7",
     "react": "19.2.4",
     "react-dom": "19.2.4",
     "tailwind-merge": "^3.6.0",
@@ -32,6 +35,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.7",
     "ffmpeg-static": "^5.3.0",
+    "pdf-to-img": "^6.1.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }

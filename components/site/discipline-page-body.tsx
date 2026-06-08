@@ -9,6 +9,7 @@ import { getSectionGallery } from "@/lib/galleries";
 import { useT } from "./language-provider";
 import { AnimatedText } from "@/components/ui/animated-text";
 import { MediaGallery } from "@/components/ui/media-gallery";
+import { MagazineFlipbook } from "@/components/ui/flipbook";
 
 export function DisciplinePageBody({ slug }: { slug: string }) {
   const t = useT();
@@ -50,6 +51,12 @@ export function DisciplinePageBody({ slug }: { slug: string }) {
           <p className="mb-6 text-lg leading-relaxed text-muted-foreground">{tr.overview}</p>
           <p className="mb-12 text-lg leading-relaxed text-muted-foreground">{tr.conclusion}</p>
         </div>
+
+        {slug === "disseny" && (
+          <div className="mb-16">
+            <MagazineFlipbook heading="Magazine" />
+          </div>
+        )}
 
         {hasReal ? (
           groups.length > 0 ? (

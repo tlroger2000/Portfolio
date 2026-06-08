@@ -9,9 +9,7 @@
 import fotoHero from "@/components/images/fotos/IMG_4665.jpg";
 import fotoBg from "@/components/images/fotos/IMG_5212.jpg";
 import fotoCover from "@/components/images/fotos/IMG_4726.jpg";
-import dissenyHero from "@/components/images/graphic_design/Lowlight.png";
-import dissenyBg from "@/components/images/graphic_design/WaterReflection.png";
-import dissenyCover from "@/components/images/graphic_design/Cartell_Informatiu.png";
+import dissenyCover from "@/components/images/graphic_design/Lowlight.png";
 
 const u = (id: string, w = 1600) =>
   `https://images.unsplash.com/photo-${id}?q=80&w=${w}&auto=format&fit=crop`;
@@ -118,9 +116,10 @@ export const disciplines: Discipline[] = [
     index: "03",
     tagline: "Identitat i forma",
     kicker: "Disseny gràfic",
-    mediaType: "image",
-    mediaSrc: dissenyHero.src,
-    bgImageSrc: dissenyBg.src,
+    mediaType: "video",
+    mediaSrc: "/media/graphic_design/MotionGraphic.mp4",
+    posterSrc: "/media/graphic_design/MotionGraphic.poster.jpg",
+    bgImageSrc: "/media/graphic_design/MotionGraphic.poster.jpg",
     cover: dissenyCover.src,
     overview:
       "Identitats visuals, branding, editorial i disseny per a impressió i digital. Sistemes coherents que comuniquen amb claredat i personalitat.",
