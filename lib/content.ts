@@ -3,6 +3,16 @@
 // Substitueix les URLs d'Unsplash pel teu propi material quan el tinguis.
 // -----------------------------------------------------------------------------
 
+// Mèdia destacat de cada disciplina (hero + fons + portada). Canvia aquí la foto
+// o disseny; els vídeos locals viuen a /public/media (els hi copia
+// scripts/gen-galleries.cjs des de components/images/).
+import fotoHero from "@/components/images/fotos/IMG_4665.jpg";
+import fotoBg from "@/components/images/fotos/IMG_5212.jpg";
+import fotoCover from "@/components/images/fotos/IMG_4726.jpg";
+import dissenyHero from "@/components/images/graphic_design/Lowlight.png";
+import dissenyBg from "@/components/images/graphic_design/WaterReflection.png";
+import dissenyCover from "@/components/images/graphic_design/Cartell_Informatiu.png";
+
 const u = (id: string, w = 1600) =>
   `https://images.unsplash.com/photo-${id}?q=80&w=${w}&auto=format&fit=crop`;
 
@@ -67,9 +77,9 @@ export const disciplines: Discipline[] = [
     mediaType: "video",
     // URL neta de YouTube (sense &list/&start_radio perquè l'embed funcioni).
     mediaSrc: "https://www.youtube.com/watch?v=ediozrCDths",
-    posterSrc: u("1682687982501-1e58ab814714", 1280),
-    bgImageSrc: u("1500530855697-b586d89ba3ee", 1920),
-    cover: u("1506744038136-46273834b3fb"),
+    posterSrc: "https://img.youtube.com/vi/ediozrCDths/sddefault.jpg",
+    bgImageSrc: "https://img.youtube.com/vi/ediozrCDths/sddefault.jpg",
+    cover: "https://img.youtube.com/vi/ediozrCDths/sddefault.jpg",
     overview:
       "Producció i postproducció de vídeo: peces de marca, videoclips, documentals i contingut per a xarxes. Cada projecte busca un to visual propi, des del concepte fins al color grading final.",
     conclusion:
@@ -88,8 +98,9 @@ export const disciplines: Discipline[] = [
     tagline: "Capturar l'instant",
     kicker: "Fotografia",
     mediaType: "image",
-    mediaSrc: u("1452587925148-ce544e77e70d"),
-    bgImageSrc: u("1469474968028-56623f02e42e", 1920),
+    mediaSrc: fotoHero.src,
+    bgImageSrc: fotoBg.src,
+    cover: fotoCover.src,
     overview:
       "Fotografia de producte, retrat, esdeveniment i paisatge. Una mirada que treballa la llum, la composició i el moment per crear imatges amb intenció.",
     conclusion:
@@ -108,8 +119,9 @@ export const disciplines: Discipline[] = [
     tagline: "Identitat i forma",
     kicker: "Disseny gràfic",
     mediaType: "image",
-    mediaSrc: u("1561070791-2526d30994b5"),
-    bgImageSrc: u("1558655146-9f40138edfeb", 1920),
+    mediaSrc: dissenyHero.src,
+    bgImageSrc: dissenyBg.src,
+    cover: dissenyCover.src,
     overview:
       "Identitats visuals, branding, editorial i disseny per a impressió i digital. Sistemes coherents que comuniquen amb claredat i personalitat.",
     conclusion:
@@ -127,9 +139,11 @@ export const disciplines: Discipline[] = [
     index: "04",
     tagline: "Experiències digitals",
     kicker: "Desenvolupament web",
-    mediaType: "image",
-    mediaSrc: u("1542744173-8e7e53415bb0"),
-    bgImageSrc: u("1517180102446-f3ece451e9d8", 1920),
+    mediaType: "video",
+    mediaSrc: "/media/Web/web-lgtbicostabrava.mp4",
+    posterSrc: "/media/Web/web-lgtbicostabrava.poster.jpg",
+    bgImageSrc: "/media/Web/web-lgtbicostabrava.poster.jpg",
+    cover: "/media/Web/web-lgtbicostabrava.poster.jpg",
     overview:
       "Disseny i desenvolupament de webs i aplicacions modernes amb React, Next.js i animacions interactives. Rendiment, accessibilitat i una estètica acurada.",
     conclusion:
@@ -148,10 +162,10 @@ export const disciplines: Discipline[] = [
     tagline: "Volum i textura",
     kicker: "Disseny 3D",
     mediaType: "video",
-    // URL neta de YouTube (sense &list/&start_radio perquè l'embed funcioni).
-    mediaSrc: "https://www.youtube.com/watch?v=v64OY1Okb3o",
-    posterSrc: u("1635776062127-d379bfcba9f8", 1280),
-    bgImageSrc: u("1620121692029-d088224ddc74", 1920),
+    mediaSrc: "/media/3d/PlasmaBall_Roger_Torres_Linares.mp4",
+    posterSrc: "/media/3d/PlasmaBall_Roger_Torres_Linares.poster.jpg",
+    bgImageSrc: "/media/3d/PlasmaBall_Roger_Torres_Linares.poster.jpg",
+    cover: "/media/3d/PlasmaBall_Roger_Torres_Linares.poster.jpg",
     overview:
       "Modelatge, render i animació 3D per a producte, art conceptual i experiències immersives. Materials, il·luminació i composició cuidats al detall.",
     conclusion:

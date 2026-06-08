@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.pexels.com" },
       { protocol: "https", hostname: "cdn.cosmos.so" },
       { protocol: "https", hostname: "me7aitdbxq.ufs.sh" },
+      { protocol: "https", hostname: "img.youtube.com" },
     ],
   },
 };

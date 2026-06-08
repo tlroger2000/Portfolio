@@ -3,9 +3,17 @@
 import Slideshow from "@/components/ui/slideshow";
 import { useT } from "./language-provider";
 import { AnimatedText } from "@/components/ui/animated-text";
+import { visualSelection } from "@/lib/visual-selection.generated";
 
 export function GallerySection() {
   const t = useT();
+
+  // Landscape loose photos paired with the poetic captions (cycled if fewer).
+  const slides = visualSelection.map((photo, i) => ({
+    img: photo.src,
+    caption: t.slides.length ? t.slides[i % t.slides.length] : [],
+  }));
+
   return (
     <section className="relative z-10 bg-background">
       <div className="mx-auto max-w-7xl px-6 pt-24 md:px-10">
@@ -17,7 +25,7 @@ export function GallerySection() {
         </p>
       </div>
       <div className="mt-12">
-        <Slideshow />
+        <Slideshow slides={slides} />
       </div>
     </section>
   );
