@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large media excluded from git (exceed GitHub's 100MB limit)
+components/images/video/YOUTUBE_PRIDE_SPOT.mp4
+components/images/graphic_design/samarreta.psd
