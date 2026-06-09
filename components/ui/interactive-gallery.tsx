@@ -162,9 +162,10 @@ export function InteractiveGallery({
             </button>
           </div>
 
-          {/* Àrea de la imatge — les fletxes s'ancoren a la caixa de la imatge */}
-          <div className="relative z-10 flex flex-1 items-center justify-center overflow-hidden px-16 sm:px-24">
-            <div className="relative flex items-center justify-center">
+          {/* Àrea de la imatge — les fletxes s'ancoren a un marc de mida fixa
+              (proporció d'una imatge horitzontal) perquè no es moguin mai. */}
+          <div className="relative z-10 flex flex-1 items-center justify-center overflow-hidden">
+            <div className="relative flex w-[min(108vh,calc(100vw_-_8rem))] items-center justify-center">
               <AnimatePresence custom={dir} mode="wait" initial={false}>
                 <motion.div
                   key={active}
@@ -185,7 +186,7 @@ export function InteractiveGallery({
                     alt={`${alt} ${active + 1}`}
                     placeholder="blur"
                     sizes="92vw"
-                    className="h-auto max-h-[74vh] w-auto max-w-[82vw] select-none rounded-lg object-contain shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)] sm:max-w-[78vw]"
+                    className="h-auto max-h-[74vh] w-auto max-w-[min(108vh,calc(100vw_-_8rem))] select-none rounded-lg object-contain shadow-[0_30px_80px_-20px_rgba(0,0,0,0.8)]"
                     draggable={false}
                     priority
                   />
