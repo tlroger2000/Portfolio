@@ -33,7 +33,7 @@ export interface Dict {
   disciplines: { heading: string; sub: string };
   skills: { kicker: string; heading: string; sub: string; hint: string };
   gallery: { heading: string; sub: string };
-  work: { backToAll: string; scrollToExpand: string };
+  work: { backToAll: string; scrollToExpand: string; seeAll: string; seeLess: string };
   footer: { headingHome: string; headingWork: string; rights: string };
   slides: string[][];
   disciplineById: Record<string, DisciplineT>;
@@ -66,7 +66,7 @@ export const translations: Record<Lang, Dict> = {
       heading: "Selecció visual",
       sub: "Un recorregut per algunes imatges. Fes servir les fletxes per navegar.",
     },
-    work: { backToAll: "Totes les disciplines", scrollToExpand: "Desplaça per ampliar" },
+    work: { backToAll: "Totes les disciplines", scrollToExpand: "Desplaça per ampliar", seeAll: "Veure-les totes", seeLess: "Veure'n menys" },
     footer: {
       headingHome: "Treballem junts?",
       headingWork: "T'agrada el que veus?",
@@ -154,7 +154,7 @@ export const translations: Record<Lang, Dict> = {
       heading: "Selección visual",
       sub: "Un recorrido por algunas imágenes. Usa las flechas para navegar.",
     },
-    work: { backToAll: "Todas las disciplinas", scrollToExpand: "Desplázate para ampliar" },
+    work: { backToAll: "Todas las disciplinas", scrollToExpand: "Desplázate para ampliar", seeAll: "Ver todas", seeLess: "Ver menos" },
     footer: {
       headingHome: "¿Trabajamos juntos?",
       headingWork: "¿Te gusta lo que ves?",
@@ -242,7 +242,7 @@ export const translations: Record<Lang, Dict> = {
       heading: "Visual selection",
       sub: "A walk through a few images. Use the arrows to navigate.",
     },
-    work: { backToAll: "All disciplines", scrollToExpand: "Scroll to expand" },
+    work: { backToAll: "All disciplines", scrollToExpand: "Scroll to expand", seeAll: "See all", seeLess: "See less" },
     footer: {
       headingHome: "Let's work together?",
       headingWork: "Like what you see?",

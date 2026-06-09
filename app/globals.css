@@ -91,6 +91,25 @@ body {
   color: var(--foreground);
 }
 
+/* Show the pointing-hand cursor on everything interactive. */
+button:not(:disabled),
+a[href],
+label[for],
+summary,
+[role="button"],
+[role="link"],
+[role="tab"],
+[role="menuitem"],
+[onclick],
+.cursor-pointer {
+  cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
 /* Offset anchored sections so the fixed header doesn't cover them. */
 #work {
   scroll-margin-top: 5rem;

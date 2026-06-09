@@ -30,17 +30,27 @@ for (const f of fs.readdirSync(OUT)) {
   if (/^page-\d+\.jpg$/.test(f)) fs.unlinkSync(path.join(OUT, f));
 }
 
-const doc = await pdf(PDF, { scale: 2 });
-let i = 0;
+// Final width of each individual flipbook page (after splitting spreads).
+// ~880px is plenty: fullscreen shows each page at roughly 640px, inline ~500px.
+const PAGE_W = 880;
+
+// The source PDF mixes single portrait pages (front/back cover) with landscape
+// pages that each hold a full TWO-PAGE spread (left + right page side by side).
+// page-flip expects one image per individual page, so we split every landscape
+// spread down the middle into a left and a right page; portrait pages are kept
+// whole. Rendered at a high scale so each half still has plenty of resolution.
+const doc = await pdf(PDF, { scale: 4 });
+let i = 0; // output (individual) page counter
 let width = 0;
 let height = 0;
 const pages = [];
-for await (const page of doc) {
+
+const emit = async (img) => {
   i++;
   const name = `page-${String(i).padStart(3, "0")}.jpg`;
-  const buf = await sharp(page)
-    .resize({ width: 1000, withoutEnlargement: true })
-    .jpeg({ quality: 82, mozjpeg: true })
+  const buf = await sharp(img)
+    .resize({ width: PAGE_W, withoutEnlargement: true })
+    .jpeg({ quality: 74, mozjpeg: true })
     .toBuffer();
   fs.writeFileSync(path.join(OUT, name), buf);
   if (i === 1) {
@@ -49,6 +59,24 @@ for await (const page of doc) {
     height = m.height;
   }
   pages.push(`  { src: "/media/graphic_design/magazine/${name}" }`);
+};
+
+for await (const page of doc) {
+  const img = sharp(page);
+  const m = await img.metadata();
+  if (m.width > m.height) {
+    // Landscape => two-page spread. Split into left and right halves.
+    const half = Math.floor(m.width / 2);
+    const left = await sharp(page).extract({ left: 0, top: 0, width: half, height: m.height }).toBuffer();
+    const right = await sharp(page)
+      .extract({ left: m.width - half, top: 0, width: half, height: m.height })
+      .toBuffer();
+    await emit(left);
+    await emit(right);
+  } else {
+    // Portrait => single page (cover / back cover).
+    await emit(page);
+  }
 }
 
 const ts =

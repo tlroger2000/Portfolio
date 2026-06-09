@@ -85,7 +85,8 @@ import g79 from "@/components/images/graphic_design/Lowlight.png";
 import g80 from "@/components/images/graphic_design/Pancarta.png";
 import g81 from "@/components/images/graphic_design/RollUp.png";
 import g82 from "@/components/images/graphic_design/WaterReflection.png";
-import g83 from "@/components/images/graphic_design/samarreta.png";
+import g83 from "@/components/images/graphic_design/pride26.png";
+import g84 from "@/components/images/graphic_design/samarreta.png";
 
 export interface GalleryImage { kind: "image"; src: StaticImageData; name: string; }
 export interface GalleryVideo { kind: "video"; src: string; poster?: string; name: string; }
@@ -118,7 +119,7 @@ export const galleries: Record<string, SectionGallery> = {
   },
   "disseny": {
     folder: "graphic_design",
-    rootItems: [{ kind: "image", src: g77, name: "Cartell_Informatiu" }, { kind: "image", src: g78, name: "Lettering" }, { kind: "image", src: g79, name: "Lowlight" }, { kind: "video", src: "/media/graphic_design/MotionGraphic.mp4", poster: "/media/graphic_design/MotionGraphic.poster.jpg", name: "MotionGraphic" }, { kind: "video", src: "/media/graphic_design/Motion_Graphics2.mp4", poster: "/media/graphic_design/Motion_Graphics2.poster.jpg", name: "Motion_Graphics2" }, { kind: "image", src: g80, name: "Pancarta" }, { kind: "image", src: g81, name: "RollUp" }, { kind: "image", src: g82, name: "WaterReflection" }, { kind: "image", src: g83, name: "samarreta" }],
+    rootItems: [{ kind: "image", src: g77, name: "Cartell_Informatiu" }, { kind: "image", src: g78, name: "Lettering" }, { kind: "image", src: g79, name: "Lowlight" }, { kind: "video", src: "/media/graphic_design/MotionGraphic.mp4", poster: "/media/graphic_design/MotionGraphic.poster.jpg", name: "MotionGraphic" }, { kind: "video", src: "/media/graphic_design/Motion_Graphics2.mp4", poster: "/media/graphic_design/Motion_Graphics2.poster.jpg", name: "Motion_Graphics2" }, { kind: "image", src: g80, name: "Pancarta" }, { kind: "image", src: g81, name: "RollUp" }, { kind: "image", src: g82, name: "WaterReflection" }, { kind: "image", src: g83, name: "pride26" }, { kind: "image", src: g84, name: "samarreta" }],
     groups: [
     ],
   },

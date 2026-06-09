@@ -119,7 +119,7 @@ export const disciplines: Discipline[] = [
     mediaType: "video",
     mediaSrc: "/media/graphic_design/MotionGraphic.mp4",
     posterSrc: "/media/graphic_design/MotionGraphic.poster.jpg",
-    bgImageSrc: "/media/graphic_design/MotionGraphic.poster.jpg",
+    bgImageSrc: "/media/graphic_design/disseny-bg.png",
     cover: dissenyCover.src,
     overview:
       "Identitats visuals, branding, editorial i disseny per a impressió i digital. Sistemes coherents que comuniquen amb claredat i personalitat.",

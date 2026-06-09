@@ -48,6 +48,22 @@ const ScrollExpandMedia = ({
     setMediaFullyExpanded(false);
   }
 
+  // This hero hijacks scrolling and assumes it starts at the very top with the
+  // media collapsed. Browsers, however, restore the previous scroll position on
+  // refresh (F5) — which leaves the hero stuck/blank if you reloaded part-way
+  // down. Disable that restoration and snap to the top whenever this mounts.
+  useEffect(() => {
+    const prev =
+      typeof history !== "undefined" && "scrollRestoration" in history
+        ? history.scrollRestoration
+        : null;
+    if (prev !== null) history.scrollRestoration = "manual";
+    window.scrollTo(0, 0);
+    return () => {
+      if (prev !== null) history.scrollRestoration = prev;
+    };
+  }, []);
+
   // Keep the refs in sync with state (also covers the reset above).
   useEffect(() => {
     progressRef.current = scrollProgress;

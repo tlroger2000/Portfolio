@@ -8,7 +8,7 @@ import { getDiscipline, isYoutubeItem, youtubeEmbed } from "@/lib/content";
 import { getSectionGallery } from "@/lib/galleries";
 import { useT } from "./language-provider";
 import { AnimatedText } from "@/components/ui/animated-text";
-import { MediaGallery } from "@/components/ui/media-gallery";
+import { InteractiveGallery } from "@/components/ui/interactive-gallery";
 import { MagazineFlipbook } from "@/components/ui/flipbook";
 
 export function DisciplinePageBody({ slug }: { slug: string }) {
@@ -62,16 +62,19 @@ export function DisciplinePageBody({ slug }: { slug: string }) {
           groups.length > 0 ? (
             <div className="space-y-16">
               {groups.map((g) => (
-                <div key={g.path.join("/")}>
-                  <h3 className="mb-6 text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">
-                    {g.path.join(" · ")}
-                  </h3>
-                  <MediaGallery items={g.items} alt={`${tr.label} — ${g.name}`} />
-                </div>
+                <InteractiveGallery
+                  key={g.path.join("/")}
+                  title={g.path.join(" · ")}
+                  items={g.items}
+                  alt={`${tr.label} — ${g.name}`}
+                  previewCount={3}
+                  labelMore={t.work.seeAll}
+                  labelLess={t.work.seeLess}
+                />
               ))}
             </div>
           ) : (
-            <MediaGallery items={rootItems} alt={tr.label} />
+            <InteractiveGallery items={rootItems} alt={tr.label} />
           )
         ) : (
           /* Fallback for sections without real images yet (web / 3d / video). */
