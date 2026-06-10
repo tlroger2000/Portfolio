@@ -1,28 +1,20 @@
 "use client";
 
 import React from "react";
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import { TextEffect } from "./text-effect";
+import { SpecialText } from "./special-text";
 
 type Tag = "h1" | "h2" | "h3" | "p" | "span";
 
-const container: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.06 } },
-};
-
-const item: Variants = {
-  hidden: { opacity: 0, y: 12, filter: "blur(10px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
-  },
-};
-
 /**
- * Heading that reveals word-by-word (blur + rise). Animates on mount so it can
- * never get stuck hidden; falls back to plain text under reduced motion.
+ * Títol animat, centralitzat per a tota la web. S'anima quan entra a la vista
+ * (en scroll), no pas en muntar — així els títols de seccions sota el plec
+ * també s'animen quan hi arribes.
+ *   · h2 (i h1 / p / span) → revelat paraula a paraula amb desenfocat
+ *     (TextEffect, preset "blur").
+ *   · h3 → efecte "decode"/scramble monoespaiat (SpecialText).
+ * Sota "prefers-reduced-motion" cau a text pla sense animació.
  */
 export function AnimatedText({
   children,
@@ -36,34 +28,26 @@ export function AnimatedText({
   per?: "word" | "char";
 }) {
   const reduce = useReducedMotion();
-  const MotionTag = motion[as] as typeof motion.h2;
 
   if (reduce) {
     const Tag = as as React.ElementType;
     return <Tag className={className}>{children}</Tag>;
   }
 
-  const segments = per === "word" ? children.split(/(\s+)/) : children.split("");
+  // h3 → "decode" monoespaiat quan entra a la vista (manté la semàntica <h3>).
+  if (as === "h3") {
+    return (
+      <h3 className={className}>
+        <SpecialText inView>{children}</SpecialText>
+      </h3>
+    );
+  }
 
+  // h1 / h2 / p / span → desenfocat paraula a paraula en entrar a la vista.
   return (
-    <MotionTag
-      className={className}
-      initial="hidden"
-      animate="visible"
-      variants={container}
-      aria-label={children}
-    >
-      {segments.map((seg, i) => (
-        <motion.span
-          key={`${i}-${seg}`}
-          variants={item}
-          aria-hidden
-          className="inline-block whitespace-pre"
-        >
-          {seg}
-        </motion.span>
-      ))}
-    </MotionTag>
+    <TextEffect as={as} per={per} preset="blur" inView className={className}>
+      {children}
+    </TextEffect>
   );
 }
 

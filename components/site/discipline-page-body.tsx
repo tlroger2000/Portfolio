@@ -2,14 +2,95 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
 import ScrollExpandMedia from "@/components/blocks/scroll-expansion-hero";
-import { getDiscipline, isYoutubeItem, youtubeEmbed } from "@/lib/content";
+import {
+  getDiscipline,
+  isYoutubeItem,
+  isInstagramItem,
+  youtubeEmbed,
+  instagramEmbed,
+  type GalleryItem,
+} from "@/lib/content";
 import { getSectionGallery } from "@/lib/galleries";
 import { useT } from "./language-provider";
 import { AnimatedText } from "@/components/ui/animated-text";
 import { InteractiveGallery } from "@/components/ui/interactive-gallery";
 import { MagazineFlipbook } from "@/components/ui/flipbook";
+
+// Mateixa corba i revelat (fos + desenfocat en scroll) que la galeria de foto.
+const REVEAL_EASE = [0.22, 1, 0.36, 1] as const;
+
+/**
+ * Una targeta de la graella de fallback: un reel/post d'Instagram (vertical),
+ * un vídeo de YouTube o una imatge. Apareix amb un revelat animat en scroll,
+ * igual que la galeria de la secció de foto.
+ */
+function FallbackItem({
+  item,
+  index,
+  label,
+}: {
+  item: GalleryItem;
+  index: number;
+  label: string;
+}) {
+  const reduce = useReducedMotion();
+  const reveal = {
+    initial: reduce ? false : { opacity: 0, y: 28, filter: "blur(10px)" },
+    whileInView: { opacity: 1, y: 0, filter: "blur(0px)" },
+    viewport: { once: true, amount: 0.12, margin: "0px 0px -8% 0px" },
+    transition: { duration: 0.7, ease: REVEAL_EASE, delay: (index % 3) * 0.07 },
+  } as const;
+
+  // Instagram: alçada fixa vertical (els reels són en format retrat).
+  if (isInstagramItem(item)) {
+    return (
+      <motion.div
+        {...reveal}
+        className="relative overflow-hidden rounded-xl border border-border bg-card"
+      >
+        <iframe
+          src={instagramEmbed(item.instagram)}
+          title={`${label} ${index + 1}`}
+          className="h-[620px] w-full"
+          loading="lazy"
+          scrolling="no"
+          allow="encrypted-media"
+          allowFullScreen
+        />
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div
+      {...reveal}
+      className={`relative overflow-hidden rounded-xl border border-border ${
+        index % 3 === 0 ? "sm:col-span-2 aspect-[16/9]" : "aspect-[4/3]"
+      }`}
+    >
+      {isYoutubeItem(item) ? (
+        <iframe
+          src={youtubeEmbed(item.youtube)}
+          title={`${label} ${index + 1}`}
+          className="absolute inset-0 h-full w-full"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      ) : (
+        <Image
+          src={item}
+          alt={`${label} ${index + 1}`}
+          fill
+          sizes="(max-width: 640px) 100vw, 50vw"
+          className="object-cover transition-transform duration-700 hover:scale-105"
+        />
+      )}
+    </motion.div>
+  );
+}
 
 export function DisciplinePageBody({ slug }: { slug: string }) {
   const t = useT();
@@ -76,34 +157,45 @@ export function DisciplinePageBody({ slug }: { slug: string }) {
           ) : (
             <InteractiveGallery items={rootItems} alt={tr.label} />
           )
+        ) : d.sections && d.sections.length > 0 ? (
+          /* Subseccions amb títol (p.ex. vídeo: Videoclips, After-Party…). */
+          <div className="space-y-16">
+            {d.sections.map((sec) => {
+              // Els reels d'Instagram són verticals: graella de més columnes.
+              const vertical = sec.items.every(isInstagramItem);
+              return (
+                <div key={sec.title}>
+                  <AnimatedText
+                    as="h3"
+                    className="mb-6 text-2xl font-bold md:text-3xl"
+                  >
+                    {sec.title}
+                  </AnimatedText>
+                  <div
+                    className={
+                      vertical
+                        ? "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3"
+                        : "grid grid-cols-1 gap-4 sm:grid-cols-2"
+                    }
+                  >
+                    {sec.items.map((item, i) => (
+                      <FallbackItem
+                        key={i}
+                        item={item}
+                        index={i}
+                        label={`${tr.label} — ${sec.title}`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         ) : (
-          /* Fallback for sections without real images yet (web / 3d / video). */
+          /* Fallback for sections without real images yet (web / 3d). */
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {d.gallery.map((item, i) => (
-              <div
-                key={i}
-                className={`relative overflow-hidden rounded-xl border border-border ${
-                  i % 3 === 0 ? "sm:col-span-2 aspect-[16/9]" : "aspect-[4/3]"
-                }`}
-              >
-                {isYoutubeItem(item) ? (
-                  <iframe
-                    src={youtubeEmbed(item.youtube)}
-                    title={`${tr.label} ${i + 1}`}
-                    className="absolute inset-0 h-full w-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                  />
-                ) : (
-                  <Image
-                    src={item}
-                    alt={`${tr.label} ${i + 1}`}
-                    fill
-                    sizes="(max-width: 640px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-700 hover:scale-105"
-                  />
-                )}
-              </div>
+              <FallbackItem key={i} item={item} index={i} label={tr.label} />
             ))}
           </div>
         )}

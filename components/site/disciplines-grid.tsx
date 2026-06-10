@@ -50,9 +50,12 @@ export function DisciplinesGrid() {
                 </span>
                 <div className="flex items-end justify-between">
                   <div>
-                    <h3 className="text-2xl font-bold text-white md:text-3xl">
+                    <AnimatedText
+                      as="h3"
+                      className="text-2xl font-bold text-white md:text-3xl"
+                    >
                       {t.disciplineById[d.slug].label}
-                    </h3>
+                    </AnimatedText>
                     <p className="mt-1 text-sm text-white/70">
                       {t.disciplineById[d.slug].tagline}
                     </p>

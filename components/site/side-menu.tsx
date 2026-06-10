@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { disciplines, brand } from "@/lib/content";
 import { useT } from "./language-provider";
+import TextRoll from "@/components/ui/text-roll";
 
 export function SideMenu() {
   const t = useT();
@@ -105,9 +106,9 @@ export function SideMenu() {
               <span className="font-mono text-xs text-muted-foreground transition-colors group-hover:text-primary">
                 {String(i).padStart(2, "0")}
               </span>
-              <span className="text-3xl font-black tracking-tight text-foreground transition-all duration-300 group-hover:translate-x-2 group-hover:text-primary group-focus-visible:translate-x-2 md:text-4xl">
+              <TextRoll className="text-3xl font-black tracking-tight text-foreground transition-transform duration-300 group-hover:translate-x-2 group-focus-visible:translate-x-2 md:text-4xl">
                 {l.label}
-              </span>
+              </TextRoll>
             </Link>
           ))}
 

@@ -9,7 +9,7 @@
 import fotoHero from "@/components/images/fotos/IMG_4665.jpg";
 import fotoBg from "@/components/images/fotos/IMG_5212.jpg";
 import fotoCover from "@/components/images/fotos/IMG_4726.jpg";
-import dissenyCover from "@/components/images/graphic_design/Lowlight.png";
+import dissenyCover from "@/components/images/graphic_design/Cartells i Posters/Lowlight.png";
 
 const u = (id: string, w = 1600) =>
   `https://images.unsplash.com/photo-${id}?q=80&w=${w}&auto=format&fit=crop`;
@@ -32,8 +32,8 @@ export const brand = {
   tagline: "Vídeo · Foto · Disseny gràfic · Web · 3D",
 };
 
-/** Un element de galeria: una imatge (URL) o un vídeo de YouTube. */
-export type GalleryItem = string | { youtube: string };
+/** Un element de galeria: una imatge (URL), un vídeo de YouTube o un d'Instagram. */
+export type GalleryItem = string | { youtube: string } | { instagram: string };
 
 export interface Discipline {
   slug: string;
@@ -52,17 +52,35 @@ export interface Discipline {
   overview: string;
   conclusion: string;
   gallery: GalleryItem[];
+  /** Subseccions amb títol opcionals; si hi són, substitueixen la graella plana. */
+  sections?: DisciplineSection[];
+}
+
+/** Subsecció amb títol dins d'una disciplina (p.ex. vídeo: videoclips, documental). */
+export interface DisciplineSection {
+  title: string;
+  items: GalleryItem[];
 }
 
 /** True si un element de galeria és un vídeo de YouTube. */
 export const isYoutubeItem = (item: GalleryItem): item is { youtube: string } =>
   typeof item === "object" && item !== null && "youtube" in item;
 
+/** True si un element de galeria és un vídeo/reel d'Instagram. */
+export const isInstagramItem = (item: GalleryItem): item is { instagram: string } =>
+  typeof item === "object" && item !== null && "instagram" in item;
+
 /** Converteix una URL de YouTube en URL d'incrustació (embed). */
 export const youtubeEmbed = (url: string): string => {
   const m = url.match(/(?:v=|youtu\.be\/|embed\/)([A-Za-z0-9_-]{11})/);
   const id = m?.[1];
   return id ? `https://www.youtube.com/embed/${id}?rel=0&modestbranding=1` : url;
+};
+
+/** Converteix una URL d'Instagram (post o reel) en URL d'incrustació (embed). */
+export const instagramEmbed = (url: string): string => {
+  const m = url.match(/instagram\.com\/(p|reel|tv)\/([A-Za-z0-9_-]+)/);
+  return m ? `https://www.instagram.com/${m[1]}/${m[2]}/embed` : url;
 };
 
 export const disciplines: Discipline[] = [
@@ -87,6 +105,56 @@ export const disciplines: Discipline[] = [
       u("1469474968028-56623f02e42e"),
       u("1470071459604-3b5ec3a7fe05"),
       u("1441974231531-c6227db76b6e"),
+    ],
+    sections: [
+      {
+        title: "Videoclips",
+        items: [
+          { youtube: "https://www.youtube.com/watch?v=9ydk2k4pcBw" },
+          { youtube: "https://www.youtube.com/watch?v=fx69tzcpUg4" },
+          { youtube: "https://www.youtube.com/watch?v=lEjdbA0_WY8" },
+          { youtube: "https://www.youtube.com/watch?v=BU0v3OFMrQE" },
+          { youtube: "https://www.youtube.com/watch?v=n6kF3atDDs4" },
+        ],
+      },
+      {
+        title: "Documental",
+        items: [{ youtube: "https://youtu.be/rrky28_BubA" }],
+      },
+      {
+        title: "After-Party",
+        items: [
+          { instagram: "https://www.instagram.com/p/DYNHWm1vUq7/" },
+          { instagram: "https://www.instagram.com/reel/DYc9Z52sffs/" },
+        ],
+      },
+      {
+        title: "Edició per xarxes",
+        items: [
+          { instagram: "https://www.instagram.com/reel/DW3jP5tiGMs/" },
+          { instagram: "https://www.instagram.com/reel/DYAapn-AhpF/" },
+          { instagram: "https://www.instagram.com/reel/DXd7et5AD-3/" },
+        ],
+      },
+      {
+        title: "Making of",
+        items: [{ instagram: "https://www.instagram.com/reel/DVOrAEgDGb7/" }],
+      },
+      {
+        title: "Spots",
+        items: [
+          { instagram: "https://www.instagram.com/reel/DZCe7XHgbU8/" },
+          { instagram: "https://www.instagram.com/reel/DYMSLuaDDu_/" },
+        ],
+      },
+      {
+        title: "Anuncis per a Negocis",
+        items: [
+          { instagram: "https://www.instagram.com/reel/CWIV61yARtg/" },
+          { instagram: "https://www.instagram.com/reel/CYTta3-oLbH/" },
+          { instagram: "https://www.instagram.com/reel/CeRTZ7WjB6Y/" },
+        ],
+      },
     ],
   },
   {
@@ -117,8 +185,8 @@ export const disciplines: Discipline[] = [
     tagline: "Identitat i forma",
     kicker: "Disseny gràfic",
     mediaType: "video",
-    mediaSrc: "/media/graphic_design/MotionGraphic.mp4",
-    posterSrc: "/media/graphic_design/MotionGraphic.poster.jpg",
+    mediaSrc: "/media/graphic_design/Motion Graphics/MotionGraphic.mp4",
+    posterSrc: "/media/graphic_design/Motion Graphics/MotionGraphic.poster.jpg",
     bgImageSrc: "/media/graphic_design/disseny-bg.png",
     cover: dissenyCover.src,
     overview:

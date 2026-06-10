@@ -23,6 +23,12 @@ type TextEffectProps = {
   preset?: PresetType;
   delay?: number;
   trigger?: boolean;
+  /** Anima quan l'element entra a la vista (en scroll) en comptes d'en muntar. */
+  inView?: boolean;
+  /** Si `inView`, anima només la primera vegada (per defecte) o cada cop. */
+  inViewOnce?: boolean;
+  /** Si `inView`, fracció visible per disparar (0–1). */
+  inViewAmount?: number;
   onAnimationComplete?: () => void;
   segmentWrapperClassName?: string;
 };
@@ -158,6 +164,9 @@ export function TextEffect({
   preset,
   delay = 0,
   trigger = true,
+  inView = false,
+  inViewOnce = true,
+  inViewAmount = 0.3,
   onAnimationComplete,
   segmentWrapperClassName,
 }: TextEffectProps) {
@@ -201,7 +210,12 @@ export function TextEffect({
       {trigger && (
         <MotionTag
           initial="hidden"
-          animate="visible"
+          {...(inView
+            ? {
+                whileInView: "visible",
+                viewport: { once: inViewOnce, amount: inViewAmount },
+              }
+            : { animate: "visible" })}
           exit="exit"
           aria-label={ariaLabel}
           variants={delayedContainerVariants}

@@ -12,6 +12,7 @@ import {
 } from "framer-motion";
 import { ChevronDown, X, ArrowLeft, ArrowRight, Expand } from "lucide-react";
 import type { GalleryMedia } from "@/lib/galleries";
+import { AnimatedText } from "@/components/ui/animated-text";
 
 // Premium expo-out easing — the slow-out curve favoured by editorial sites.
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -252,9 +253,12 @@ export function InteractiveGallery({
           viewport={{ once: true, amount: 0.6 }}
           transition={{ duration: 0.6, ease: EASE }}
         >
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+          <AnimatedText
+            as="h3"
+            className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground"
+          >
             {title}
-          </h3>
+          </AnimatedText>
           <span className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
           <span className="font-mono text-xs tabular-nums text-muted-foreground/70">
             {pad(items.length)}
@@ -294,11 +298,8 @@ export function InteractiveGallery({
                 <span className="pointer-events-none absolute left-3 top-3 font-mono text-[11px] tracking-widest text-white/60 mix-blend-difference">
                   {pad(i + 1)}
                 </span>
-                {/* Acció + nom */}
-                <span className="pointer-events-none absolute inset-x-3 bottom-3 flex translate-y-3 items-center justify-between opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
-                  <span className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wider text-white backdrop-blur-sm">
-                    {item.name}
-                  </span>
+                {/* Acció */}
+                <span className="pointer-events-none absolute inset-x-3 bottom-3 flex translate-y-3 items-center justify-end opacity-0 transition-all duration-500 ease-out group-hover:translate-y-0 group-hover:opacity-100">
                   <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/15 text-white backdrop-blur-sm">
                     <Expand className="h-3.5 w-3.5" />
                   </span>

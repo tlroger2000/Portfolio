@@ -79,14 +79,17 @@ import g73 from "@/components/images/fotos/Wedding/IMG_7830.jpg";
 import g74 from "@/components/images/fotos/Wedding/IMG_7851.jpg";
 import g75 from "@/components/images/fotos/Wedding/IMG_7857.jpg";
 import g76 from "@/components/images/fotos/Wedding/IMG_7888.jpg";
-import g77 from "@/components/images/graphic_design/Cartell_Informatiu.png";
-import g78 from "@/components/images/graphic_design/Lettering.png";
-import g79 from "@/components/images/graphic_design/Lowlight.png";
-import g80 from "@/components/images/graphic_design/Pancarta.png";
-import g81 from "@/components/images/graphic_design/RollUp.png";
-import g82 from "@/components/images/graphic_design/WaterReflection.png";
-import g83 from "@/components/images/graphic_design/pride26.png";
-import g84 from "@/components/images/graphic_design/samarreta.png";
+import g77 from "@/components/images/graphic_design/Cartells i Posters/Cartell_Informatiu.png";
+import g78 from "@/components/images/graphic_design/Cartells i Posters/Lettering.png";
+import g79 from "@/components/images/graphic_design/Cartells i Posters/Lowlight.png";
+import g80 from "@/components/images/graphic_design/Cartells i Posters/WaterReflection.png";
+import g81 from "@/components/images/graphic_design/Cartells i Posters/aCARTELL-FESTA-MAJOR-25-scaled.jpg";
+import g82 from "@/components/images/graphic_design/Cartells i Posters/aapride26.png";
+import g83 from "@/components/images/graphic_design/Logos/LogoJoventFondarella.png";
+import g84 from "@/components/images/graphic_design/MockUps/Pancarta.png";
+import g85 from "@/components/images/graphic_design/MockUps/RollUp.png";
+import g86 from "@/components/images/graphic_design/MockUps/SamarretaMockUp4.png";
+import g87 from "@/components/images/graphic_design/MockUps/samarreta.png";
 
 export interface GalleryImage { kind: "image"; src: StaticImageData; name: string; }
 export interface GalleryVideo { kind: "video"; src: string; poster?: string; name: string; }
@@ -119,8 +122,12 @@ export const galleries: Record<string, SectionGallery> = {
   },
   "disseny": {
     folder: "graphic_design",
-    rootItems: [{ kind: "image", src: g77, name: "Cartell_Informatiu" }, { kind: "image", src: g78, name: "Lettering" }, { kind: "image", src: g79, name: "Lowlight" }, { kind: "video", src: "/media/graphic_design/MotionGraphic.mp4", poster: "/media/graphic_design/MotionGraphic.poster.jpg", name: "MotionGraphic" }, { kind: "video", src: "/media/graphic_design/Motion_Graphics2.mp4", poster: "/media/graphic_design/Motion_Graphics2.poster.jpg", name: "Motion_Graphics2" }, { kind: "image", src: g80, name: "Pancarta" }, { kind: "image", src: g81, name: "RollUp" }, { kind: "image", src: g82, name: "WaterReflection" }, { kind: "image", src: g83, name: "pride26" }, { kind: "image", src: g84, name: "samarreta" }],
+    rootItems: [],
     groups: [
+      { name: "Cartells i Posters", path: ["Cartells i Posters"], items: [{ kind: "image", src: g77, name: "Cartell_Informatiu" }, { kind: "image", src: g78, name: "Lettering" }, { kind: "image", src: g79, name: "Lowlight" }, { kind: "image", src: g80, name: "WaterReflection" }, { kind: "image", src: g81, name: "aCARTELL-FESTA-MAJOR-25-scaled" }, { kind: "image", src: g82, name: "aapride26" }] },
+      { name: "Logos", path: ["Logos"], items: [{ kind: "image", src: g83, name: "LogoJoventFondarella" }] },
+      { name: "MockUps", path: ["MockUps"], items: [{ kind: "image", src: g84, name: "Pancarta" }, { kind: "image", src: g85, name: "RollUp" }, { kind: "image", src: g86, name: "SamarretaMockUp4" }, { kind: "image", src: g87, name: "samarreta" }] },
+      { name: "Motion Graphics", path: ["Motion Graphics"], items: [{ kind: "video", src: "/media/graphic_design/Motion Graphics/MotionGraphic.mp4", poster: "/media/graphic_design/Motion Graphics/MotionGraphic.poster.jpg", name: "MotionGraphic" }, { kind: "video", src: "/media/graphic_design/Motion Graphics/Motion_Graphics2.mp4", poster: "/media/graphic_design/Motion Graphics/Motion_Graphics2.poster.jpg", name: "Motion_Graphics2" }] },
     ],
   },
 };

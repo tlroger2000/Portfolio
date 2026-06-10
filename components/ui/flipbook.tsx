@@ -5,6 +5,7 @@ import { createPortal } from "react-dom";
 import { PageFlip } from "page-flip";
 import { ChevronLeft, ChevronRight, Maximize2, X } from "lucide-react";
 import { magazine } from "@/lib/flipbook.generated";
+import { AnimatedText } from "@/components/ui/animated-text";
 
 /**
  * Virtual magazine: real page-turn animation (page-flip / StPageFlip) driven by
@@ -162,9 +163,12 @@ export function MagazineFlipbook({ heading }: { heading?: string }) {
     <div>
       {heading && (
         <div className="mb-6 flex items-center justify-between gap-4">
-          <h3 className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground">
+          <AnimatedText
+            as="h3"
+            className="text-sm font-semibold uppercase tracking-[0.25em] text-muted-foreground"
+          >
             {heading}
-          </h3>
+          </AnimatedText>
           <button
             type="button"
             onClick={openFullscreen}
